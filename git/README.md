@@ -73,3 +73,6 @@ git merge <branch-name-you-want-to-merge>
 
 ## Gitflow
 ![gitflow](gitflow.png)
+
+# Knowledge Source 
+## Any youtube video :D plus https://learngitbranching.js.org/

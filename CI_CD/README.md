@@ -2,7 +2,7 @@
 
 ## CI - continous integration
 
-### Continous integration is the practice of automating the integration of code changes from multiple contributors into a single software project. It allows developers to frequently merge code changes, test, build and run.
+Continous integration is the practice of automating the integration of code changes from multiple contributors into a single software project. It allows developers to frequently merge code changes, test, build and run.
 <br />
 
 ## CD - continous delivery

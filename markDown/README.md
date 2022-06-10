@@ -70,3 +70,5 @@ npm start
 * [x] Task1
 * [x] Task2
 * [ ]  Task3
+
+## [Knowledge source](https://www.youtube.com/watch?v=HUBNt18RFbo)

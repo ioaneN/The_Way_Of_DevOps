@@ -64,3 +64,57 @@
 ~~~bash
 ansible-playbook playbook.yml -f 10
 ~~~
+
+<br/>
+
+# Error handling in playbooks
+
+### By default Ansible stops executing tasks on a host when a task fails on that host. You can use ignore_errors to continue on in spite of the failure.
+
+~~~YML
+- name: Do not count this as a failure
+  command: /bin/false
+  ignore_errors: yes
+~~~
+
+<br/>
+
+### You can ignore a task failure due to the host instance being 'UNREACHABLE'
+with the ***ignore_unrichable***
+
+~~~yaml
+- hosts: all
+  ignore_unreachable: yes
+  tasks: 
+  - name: This executes, fail, and the failure is ignored
+    command: /bin/true
+~~~
+
+## Handlres and failure
+
+### If a task notifies a handler but another task fails later in the play, by default the handler does not run on that host, which may leave the host in an unexpected state.
+
+### You can change this behavior with the ***--force-handlers*** command-line option, by including **force_handlers: True** in a play, or by adding **force_handlers = True** to ansible.cfg
+
+<br/>
+
+## Definine failure 
+
+### Ansible lets you define what “failure” means in each task using the **failed_when** conditional. As with all conditionals in Ansible, lists of multiple **failed_when** conditions are joined with an implicit and, meaning the task only fails when all conditions are met
+
+~~~yml
+- name: Fail task when the command error output prints FAILED
+  ansible.builtin.command: /usr/bin/example-command -x -y -z
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"
+~~~
+
+
+### or based on the return code
+
+~~~yml
+- name: Fail task when both files are identical
+  raw: diff foo/file1 bar/file2
+  register: diff_cmd
+  failed_when: diff_cmd.rc == 0 or diff_cmd.rc >= 2
+~~~

@@ -1,0 +1,15 @@
+---
+
+- name: run tasks on all hosts
+  hosts: "*"
+  vars:
+    env: staging
+  tasks:
+    - name: template file onto remote hosts
+      template:
+        src: my_app.conf.j2
+        dest: /etc/my_app/myconfig.conf
+        owner: root
+        group: root
+        mode: 0600
+      become: true

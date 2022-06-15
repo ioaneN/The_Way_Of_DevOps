@@ -118,3 +118,68 @@ with the ***ignore_unrichable***
   register: diff_cmd
   failed_when: diff_cmd.rc == 0 or diff_cmd.rc >= 2
 ~~~
+
+# Using Variables
+
+#### You can define a simple variable  using standart YAML syntax. for example
+~~~yaml
+remote_install_path: /opt/my_app_config
+~~~
+
+#### Referencing simple variables
+
+~~~yaml
+template:
+  src: foo.cfg.j2
+  dest: '{{ remote_install_path }}/foo.cfg'
+~~~
+
+### List Variables
+
+~~~yml
+region:
+  - north
+  - south
+  - midwest
+~~~
+
+### Referencing list variables
+~~~yml
+region: "{{ region[0] }}"
+~~~
+
+### Defining variables as key: value dictionaris
+~~~yml
+foo:
+  field1: one
+  field2: two
+~~~
+### Referencing Key:value dictionary variables
+
+~~~yml
+foo['filed1']
+foo.field1
+~~~
+
+### Registering variables
+
+#### You can create variables from output of an Ansible task with the task keyword **register**
+
+~~~yml
+- hosts: web_servers
+  tasks:
+
+    - name: Run a shell command and register its output as a variable
+      shell: /usr/bin/foo
+      register: foo_result
+      ignore_errors: true
+
+    - name: Run a shell command and register its output of the previous task
+      shell: /usr/bin/bar
+      when: foo_result.rc == 5
+~~~
+
+###  Where to set variables
+
+#### You can define variables in a variety of places, such as in invetory, in playbooks, in reusable files, in roles, and at the command line. Ansible loads every possible variable it finds, then chooses the variable to apply based on variable predence rules.
+

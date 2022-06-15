@@ -2,7 +2,7 @@
 
 ### Ansible Playbooks offer a repeatable, re-usable, simple configuration management and  multi-machine deployment system.
 
-## playbook synax
+## playbook syntax
 ### Playbooks are expressed in YAML syntax
 
 <br/>
